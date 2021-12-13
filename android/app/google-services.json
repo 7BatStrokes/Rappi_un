@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "976556941055",
+    "project_id": "rappi-2435e",
+    "storage_bucket": "rappi-2435e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976556941055:android:2ce8d292e2e4e49625b6ca",
+        "android_client_info": {
+          "package_name": "com.example.rappi_un"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976556941055-4ka0p95q0pvr3mf4c5l8v7dkvohqdr3a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rappi_un",
+            "certificate_hash": "214dd35d911ead0a98002c93282122f8491e9f21"
+          }
+        },
+        {
+          "client_id": "976556941055-j64h20vdmi3dp3tb9ehr16147pl6jlp9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYFeeckLABF4AB7VY90MBBPoOSEHF4El4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976556941055-j64h20vdmi3dp3tb9ehr16147pl6jlp9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
