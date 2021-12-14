@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rappi_un/Screens/Welcome.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
 import 'package:rappi_un/Constants/AppRepository.dart';
 import 'package:rappi_un/Constants/FirebaseRepository.dart';
@@ -80,9 +81,17 @@ class _MyHomeState extends State<MyHome> {
           size: 35,
           color: Colors.black,
         ),
-        onPressed: () {
-          print("Sup");
-        },
+            onPressed: () {
+              try {
+                _fireRepo.sadlySignOut();
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                      return Welcoming();
+                    }));
+              } catch (E) {
+                print(E);
+              }
+            },
       )),
     );
   }

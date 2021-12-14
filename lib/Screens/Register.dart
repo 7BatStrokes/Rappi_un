@@ -397,7 +397,7 @@ class _RegisterState extends State<Register> {
                                     obstxt: false,
                                     title: "Give yourself a cool Username",
                                     txtcol: lesCols[0],
-                                    fillcol: lesCols[4],
+                                    fillcol: lesCols[5],
                                     onPressed: (value) {
                                       username = _apprepo.trimstr(value);
                                     },
@@ -407,7 +407,7 @@ class _RegisterState extends State<Register> {
                                     title:
                                         "Enter your email, don't worry we won't spam",
                                     txtcol: lesCols[0],
-                                    fillcol: lesCols[4],
+                                    fillcol: lesCols[5],
                                     onPressed: (value) {
                                       email = _apprepo.trimstr(value);
                                     },
@@ -416,7 +416,7 @@ class _RegisterState extends State<Register> {
                                     title:
                                         "This text field is asking for your password",
                                     txtcol: lesCols[0],
-                                    fillcol: lesCols[4],
+                                    fillcol: lesCols[5],
                                     obstxt: true,
                                     onPressed: (value) {
                                       pas = value;
@@ -426,7 +426,7 @@ class _RegisterState extends State<Register> {
                                     title:
                                         "I'm asking for it again, hope you don´t mind :)",
                                     txtcol: lesCols[0],
-                                    fillcol: Colors.yellowAccent[700],
+                                    fillcol: lesCols[5],
                                     obstxt: true,
                                     onPressed: (value) {
                                       pas2 = value;

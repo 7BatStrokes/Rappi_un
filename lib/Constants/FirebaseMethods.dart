@@ -71,7 +71,7 @@ class FireMethods {
           accessToken: _signInAuthen.accessToken);
       User? user = (await _auth.signInWithCredential(cred)).user;
       us = user;
-      print(user?.email);
+      print(user!.email);
     }
 
     return us;

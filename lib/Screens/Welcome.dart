@@ -174,11 +174,11 @@ class _TheAppState extends State<Welcoming> {
                 print("BaiBai");
               },
               fon: 15,
-              fillcol: Colors.yellowAccent[700],
+              fillcol: lesCols[5],
               title: "Type your email, appreciated user",
             );
             logpaswidg = TheTextpls(
-              fillcol: Colors.yellowAccent[700],
+              fillcol: lesCols[5],
               txt: "Something is off...",
               title: "Try again your password",
               obstxt: true,

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/Decorations.dart';
 
@@ -31,7 +29,6 @@ class TheTextpls extends StatelessWidget {
     this.entertxt,
     this.fon,
   });
-
   final Function onPressed;
   final String title;
   final String? txt;
@@ -50,21 +47,21 @@ class TheTextpls extends StatelessWidget {
       helper = "";
     }
     if (txtcol == null) {
-      txtcol = lesCols[0];
+      txtcol = lesCols[6];
     }
     if (fillcol == null) {
-      fillcol = lesCols[4];
+      fillcol = lesCols[5];
     }
     if (fon == null) {
       fon = 14;
     }
     if (bordcol == null) {
-      bordcol = lesCols[5];
+      bordcol = lesCols[0];
     }
     return TextField(
       autofocus: true,
       enabled: entertxt,
-      onEditingComplete: ()=> onPressed,
+      onSubmitted: (value)=> onPressed(value),
       cursorColor: lesCols[1],
       style:
           TextStyle(color: txtcol, fontFamily: "Manrope Light", fontSize: fon),
@@ -73,7 +70,7 @@ class TheTextpls extends StatelessWidget {
           isDense: true,
           prefixIcon: Icon(
             myicon,
-            color: lesCols[6],
+            color: lesCols[0],
             size: 30,
           ),
           helperText: helper,

@@ -36,7 +36,7 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.yellowAccent[700],
+      backgroundColor: lesCols[5],
       body: PageView(
         children: <Widget>[MyHome(), MyHome(), MyHome()],
         controller: pagecontrol,
@@ -45,13 +45,13 @@ class _MenuState extends State<Menu> {
       bottomNavigationBar: CurvedNavigationBar(
         items: <Widget>[
           Icon(Icons.question_answer,
-              color: numbpage == 0 ? lesCols[6] : Colors.yellowAccent[700],
+              color: numbpage == 0 ? lesCols[6] : lesCols[5],
               size: 30),
-          Icon(Icons.help,
-              color: numbpage == 1 ? lesCols[6] : Colors.yellowAccent[700],
+          Icon(Icons.home,
+              color: numbpage == 1 ? lesCols[6] : lesCols[5],
               size: 30),
           Icon(Icons.person,
-              color: numbpage == 2 ? lesCols[6] : Colors.yellowAccent[700],
+              color: numbpage == 2 ? lesCols[6] : lesCols[5],
               size: 30),
         ],
         color: lesCols[1]!,
