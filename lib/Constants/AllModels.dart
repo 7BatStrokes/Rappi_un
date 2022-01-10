@@ -5,10 +5,11 @@ List<Color?> lesCols = [
   Colors.greenAccent[700],
   Colors.greenAccent[400],
   Colors.greenAccent[200],
-  Colors.greenAccent[100],
-  Colors.green[100],
+  Colors.green[500],
   Colors.white,
-  Colors.black,
+  Colors.green[100],
+  Colors.green[900],
+  Colors.black
 ];
 
 List tempcols = lesCols.toList();
@@ -61,7 +62,7 @@ class TheTextpls extends StatelessWidget {
     return TextField(
       autofocus: true,
       enabled: entertxt,
-      onSubmitted: (value)=> onPressed(value),
+      onChanged: (value)=> onPressed(value),
       cursorColor: lesCols[1],
       style:
           TextStyle(color: txtcol, fontFamily: "Manrope Light", fontSize: fon),

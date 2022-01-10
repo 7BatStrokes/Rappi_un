@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
@@ -7,7 +8,6 @@ import 'package:rappi_un/Constants/AppRepository.dart';
 import 'package:rappi_un/Constants/FirebaseRepository.dart';
 import 'package:rappi_un/Screens/MainMenu.dart';
 import 'package:rappi_un/Screens/Register.dart';
-import 'package:flutter/gestures.dart';
 
 final fire = FirebaseFirestore.instance;
 FireRepo _firerepo = FireRepo();
@@ -88,7 +88,7 @@ class _TheAppState extends State<Welcoming> {
   void authenticateUser(User user) {
     print("Here Second");
     _firerepo.authenticateUser(user).then((isNewUser) {
-      if (!isNewUser) {
+      if (user.email!.split("@")[1] == "unal.edu.co") {
         print(user.displayName);
         print("New User? " + isNewUser.toString());
         _firerepo.updatelastdateDatatoDb(user).then((value) {
@@ -98,16 +98,43 @@ class _TheAppState extends State<Welcoming> {
           }));
         });
       } else {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) {
-          return Register();
-        }));
+        return (
+            showDialog(
+            context: context,
+            builder: (context) => CupertinoAlertDialog(
+          title: Text('Correo no válido',
+              style: TextStyle(
+                  color: lesCols[7],
+                  fontFamily: "Manrope Light",
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22)),
+          content: Text('Esta aplicación requiere de una cuenta de la Universidad Nacional de Colombia',
+              style: TextStyle(
+                  color: lesCols[7],
+                  fontFamily: "Manrope Light",
+                  fontWeight: FontWeight.normal,
+                  fontSize: 15)),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: Text('Cerrar',
+                  style: TextStyle(
+                      color: lesCols[6],
+                      fontFamily: "Manrope Light",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13)),
+            ),
+          ],
+        )));
       }
     });
   }
 
   void performGoogleLogIn() async {
     try {
+      _firerepo.sadlySignOut();
       _firerepo.gSignIn("").then((User user) {
         if (user != null) {
           authenticateUser(user);
@@ -122,74 +149,38 @@ class _TheAppState extends State<Welcoming> {
     }
   }
 
-  void performLogIn() async {
-    setState(() {
-      noConnecting = false;
-    });
-    try {
-      print(email + pass);
-      final user = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: pass);
-      if (user != null) {
-        _firerepo.updatelastdateDatatoDb(user.user!);
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) {
-          return Menu(0);
-        }));
-      } else {
-        print("Finally got here....");
-        setState(() {
-          noConnecting = true;
-        });
-      }
-    } catch (E) {
-      try {
-        noConnecting = true;
-        QuerySnapshot result = await fire
-            .collection("users")
-            .where("email", isEqualTo: email)
-            .get();
-        if (result.docs.length == 0) {
-          setState(() {
-            logemawidg = TheTextpls(
-              obstxt: false,
-              bordcol: lesCols[0],
-              txtcol: lesCols[0],
-              txt: "Yes, we checked and we do not recognise that last email",
-              onPressed: (value) {
-                email = _apprepo.trimstr(value);
-              },
-              title: "Isn't it your first time here? Try Signing Up",
-            );
-          });
-        } else {
-          setState(() {
-            logemawidg = TheTextpls(
-              obstxt: false,
-              bordcol: lesCols[0],
-              txtcol: lesCols[0],
-              onPressed: (value) {
-                print("HiHi");
-                email = _apprepo.trimstr(value);
-                print("BaiBai");
-              },
-              fon: 15,
-              fillcol: lesCols[5],
-              title: "Type your email, appreciated user",
-            );
-            logpaswidg = TheTextpls(
-              fillcol: lesCols[5],
-              txt: "Something is off...",
-              title: "Try again your password",
-              obstxt: true,
-              onPressed: (value) {
-                pass = value;
-              },
-            );
-          });
-        }
-      } catch (e) {}
-    }
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('You sure you want to go back?',
+            style: TextStyle(
+                color: lesCols[6],
+                fontFamily: "Manrope Light",
+                fontWeight: FontWeight.bold,
+                fontSize: 22)),
+        content: Text('Esta aplicación requiere de una cuenta de la Universidad Nacional de Colombia',
+            style: TextStyle(
+                color: lesCols[6],
+                fontFamily: "Manrope Light",
+                fontWeight: FontWeight.normal,
+                fontSize: 16)),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            child: Text('Cerrar',
+                style: TextStyle(
+                    color: lesCols[6],
+                    fontFamily: "Manrope Light",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13)),
+          ),
+        ],
+      ),
+    )) ??
+        false;
   }
 
   @override
@@ -200,140 +191,73 @@ class _TheAppState extends State<Welcoming> {
         padding: EdgeInsets.symmetric(horizontal: 40),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               SizedBox(
-                height: 250,
+                height: 150,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Text(
-                      "Rappi",
-                      style: TextStyle(
-                        color: lesCols[6],
-                        fontSize: 60,
-                        fontFamily: "MADE Evolve Sans Regular EVO",
-                      ),
-                    ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Ingresa",
+                  style: TextStyle(
+                    color: lesCols[6],
+                    fontSize: 60,
+                    fontFamily: "Agrandir Text Bold",
                   ),
-                  SizedBox(
-                    height: 85,
-                  ),
-                  logemawidg,
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Image(
+                  image: AssetImage("images/rappi.png")
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Divider(
+                color: lesCols[6],
+                thickness: 2.5,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Card(
+                elevation: 0,
+                color: lesCols[4],
+                margin: EdgeInsets.symmetric(vertical: 1, horizontal: 1),
+                child: ListTile(
+                  onTap: () async {
+                    try {
+                      performGoogleLogIn();
+                    } catch (e) {
+                      print("This is what happened: " + e.toString());
+                    }
+                    setState(() {
+                      noConnecting = false;
+                    });
+                  },
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      logpaswidg,
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Text(
-                          "Forgot your password?",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontFamily: "Manrope Light",
-                              fontSize: 12),
+                      CircleAvatar(
+                        radius: 15,
+                        backgroundColor: Colors.transparent,
+                        backgroundImage: AssetImage(goog),
+                      ),
+
+                      Text(
+                        "Tu usuario de Google",
+                        style: TextStyle(
+                          color: lesCols[6],
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Row(
-                          children: [
-                            Text(
-                              "Sign In",
-                              style: TextStyle(
-                                  color: lesCols[6],
-                                  fontFamily: "Manrope Light",
-                                  fontSize: 40),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              decoration: ShapeDecoration(
-                                shape: const StadiumBorder(),
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [lesCols[3]!, lesCols[0]!],
-                                ),
-                              ),
-                              child: MaterialButton(
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                                shape: StadiumBorder(),
-                                child: Icon(
-                                  Icons.east,
-                                  color: lesCols[5],
-                                  size: 35,
-                                ),
-                                onPressed: () {
-                                  performLogIn();
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    height: 60,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(text: "Don't have an account?"),
-                        TextSpan(
-                          text: " Sign Up",
-                          recognizer: TapGestureRecognizer()
-                            ..onTap =
-                                () => Navigator.pushNamed(context, Register.id),
-                          style: TextStyle(
-                              color: lesCols[0],
-                              fontFamily: "Manrope Light",
-                              fontSize: 17),
-                        ),
-                      ],
-                      style: TextStyle(
-                          fontFamily: "Manrope Thin",
-                          color: Colors.black,
-                          fontSize: 15),
-                    ),
-                  ),
-                  MaterialButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40)),
-                    onPressed: () async {
-                      try {
-                        performGoogleLogIn();
-                      } catch (e) {
-                        print("This is what happened: " + e.toString());
-                      }
-                      setState(() {
-                        noConnecting = false;
-                      });
-                    },
-                    child: CircleAvatar(
-                      radius: 15,
-                      backgroundColor: Colors.transparent,
-                      backgroundImage: AssetImage(goog),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           ),

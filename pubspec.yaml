@@ -53,6 +53,10 @@ flutter:
       fonts:
         - asset: fonts/MADE Evolve Sans Regular EVO.otf
 
+    - family: Agrandir Text Bold
+      fonts:
+         - asset: fonts/Agrandir-TextBold.otf
+
     - family: Midazzle Demo Outline
       fonts:
         - asset: fonts/Midazzle Demo Outline.ttf
