@@ -65,6 +65,10 @@ flutter:
       fonts:
         - asset: fonts/Manrope-Light.otf
 
+    - family: MyFlutterApp
+      fonts:
+        - asset: fonts/MyFlutterApp.ttf
+
     - family: Manrope Thin
       fonts:
         - asset: fonts/Manrope-Thin.otf

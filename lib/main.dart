@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rappi_un/Screens/Home.dart';
 import 'package:rappi_un/Screens/Welcome.dart';
 import 'package:rappi_un/Screens/Register.dart';
+import 'package:rappi_un/Screens/Choose.dart';
 import 'package:rappi_un/Screens/Check.dart';
 
 void main() async {

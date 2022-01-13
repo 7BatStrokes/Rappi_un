@@ -4,14 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
-import 'package:rappi_un/Constants/AppRepository.dart';
 import 'package:rappi_un/Constants/FirebaseRepository.dart';
+import 'package:rappi_un/Screens/Choose.dart';
 import 'package:rappi_un/Screens/MainMenu.dart';
-import 'package:rappi_un/Screens/Register.dart';
+
 
 final fire = FirebaseFirestore.instance;
 FireRepo _firerepo = FireRepo();
-AppRepo _apprepo = AppRepo();
 
 class Welcoming extends StatefulWidget {
   static const String id = 'welcoming';
@@ -24,66 +23,15 @@ class Welcoming extends StatefulWidget {
 
   String goog = "images/googleicon.png";
 
-  Widget logemawidg = TheTextpls(
-    obstxt: false,
-    myicon: Icons.person_outline,
-    bordcol: lesCols[0],
-    txtcol: lesCols[0],
-    onPressed: (value) {
-      email = _apprepo.trimstr(value);
-    },
-    fon: 15,
-    fillcol: lesCols[5],
-    title: "Type your email, appreciated user",
-  );
-  Widget logpaswidg = TheTextpls(
-    obstxt: true,
-    bordcol: lesCols[0],
-    txtcol: lesCols[0],
-    onPressed: (value) {
-      pass = value;
-    },
-    fon: 15,
-    fillcol: lesCols[5],
-    title: "Hope you remember your password...",
-  );
-
   @override
   _TheAppState createState() => _TheAppState();
 }
 
 class _TheAppState extends State<Welcoming> {
-  static String email = " ";
-  static String pass = " ";
 
   bool noConnecting = true;
 
   String goog = "images/googleicon.png";
-
-  Widget logemawidg = TheTextpls(
-    obstxt: false,
-    myicon: Icons.person_outline,
-    bordcol: lesCols[0],
-    txtcol: lesCols[6],
-    onPressed: (value) {
-      email = _apprepo.trimstr(value);
-    },
-    fon: 12,
-    fillcol: lesCols[5],
-    title: "Type your email, appreciated user",
-  );
-  Widget logpaswidg = TheTextpls(
-    obstxt: true,
-    myicon: Icons.vpn_key_outlined,
-    bordcol: lesCols[0],
-    txtcol: lesCols[6],
-    onPressed: (value) {
-      pass = value;
-    },
-    fon: 12,
-    fillcol: lesCols[5],
-    title: "Hope you remember your password...",
-  );
 
   void authenticateUser(User user) {
     print("Here Second");
@@ -94,7 +42,7 @@ class _TheAppState extends State<Welcoming> {
         _firerepo.updatelastdateDatatoDb(user).then((value) {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
-            return Menu(0);
+            return Choose();
           }));
         });
       } else {
@@ -147,40 +95,6 @@ class _TheAppState extends State<Welcoming> {
     } catch (e) {
       print(e);
     }
-  }
-
-  Future<bool> _onWillPop() async {
-    return (await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('You sure you want to go back?',
-            style: TextStyle(
-                color: lesCols[6],
-                fontFamily: "Manrope Light",
-                fontWeight: FontWeight.bold,
-                fontSize: 22)),
-        content: Text('Esta aplicación requiere de una cuenta de la Universidad Nacional de Colombia',
-            style: TextStyle(
-                color: lesCols[6],
-                fontFamily: "Manrope Light",
-                fontWeight: FontWeight.normal,
-                fontSize: 16)),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(false);
-            },
-            child: Text('Cerrar',
-                style: TextStyle(
-                    color: lesCols[6],
-                    fontFamily: "Manrope Light",
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13)),
-          ),
-        ],
-      ),
-    )) ??
-        false;
   }
 
   @override

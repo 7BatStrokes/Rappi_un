@@ -5,7 +5,7 @@ List<Color?> lesCols = [
   Colors.greenAccent[700],
   Colors.greenAccent[400],
   Colors.greenAccent[200],
-  Colors.green[500],
+  Colors.green[300],
   Colors.white,
   Colors.green[100],
   Colors.green[900],
