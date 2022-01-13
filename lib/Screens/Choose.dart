@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
+import 'package:rappi_un/Screens/Welcome.dart';
 import 'package:rappi_un/icons/my_flutter_app_icons.dart';
+import 'package:rappi_un/Constants/FirebaseRepository.dart';
 
 void main() {
   runApp(new Choose());
 }
+FireRepo _fireRepo = FireRepo();
 
 class Choose extends StatelessWidget {
   static const String id = 'Choose';
@@ -90,6 +93,15 @@ class Choose extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               print("SupSup");
+                              try {
+                                _fireRepo.sadlySignOut();
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return Welcoming();
+                                    }));
+                              } catch (E) {
+                                print(E);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(

@@ -16,9 +16,6 @@ class Welcoming extends StatefulWidget {
   static const String id = 'welcoming';
   final author = FirebaseAuth.instance;
 
-  static String email = " ";
-  static String pass = " ";
-
   bool noConnecting = true;
 
   String goog = "images/googleicon.png";
@@ -39,7 +36,7 @@ class _TheAppState extends State<Welcoming> {
       if (user.email!.split("@")[1] == "unal.edu.co") {
         print(user.displayName);
         print("New User? " + isNewUser.toString());
-        _firerepo.updatelastdateDatatoDb(user).then((value) {
+        _firerepo.addUserDatatoDb(user, user.email!).then((value) {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
             return Choose();

@@ -16,8 +16,8 @@ class FireRepo {
   Future<void> updatelastdateDatatoDb(User user) =>
       _fireMethods.updatelastdateDatatoDb(user);
 
-  Future<void> addUserDatatoDb(User user, String email, String username) =>
-      _fireMethods.addUserDatatoDb(user, email, username);
+  Future<void> addUserDatatoDb(User user, String email) =>
+      _fireMethods.addUserDatatoDb(user, email);
 
   Future<void> sadlySignOut() => _fireMethods.sadlySignOut();
 
