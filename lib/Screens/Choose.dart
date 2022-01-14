@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
+import 'package:rappi_un/Screens/Home.dart';
 import 'package:rappi_un/icons/my_flutter_app_icons.dart';
 
 void main() {
@@ -37,6 +38,10 @@ class Choose extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               print("Hi");
+                              Navigator.pushReplacement(context, // Navega a la siguiente ruta llamda myHome reemplazando la ventana actual
+                              MaterialPageRoute(builder: (context) {
+                              return MyHome();
+                              }));
                             },
                             child: Container(
                               decoration: BoxDecoration(
