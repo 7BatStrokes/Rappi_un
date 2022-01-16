@@ -7,6 +7,7 @@ import 'package:rappi_un/Screens/Restaurants.dart';
 import 'package:rappi_un/Screens/Welcome.dart';
 import 'package:rappi_un/Screens/Choose.dart';
 import 'package:rappi_un/Screens/Check.dart';
+import 'package:rappi_un/Screens/myForm.dart';
 
 void main() async {
   //Este main inicializa el proyecto y conecta a firebase
@@ -30,6 +31,7 @@ class Rappi extends StatelessWidget {
         Restaurants.id: (context) => Restaurants(),
         Chat.id: (context) => Chat(),
         Choose.id: (context) => Choose(),
+        Myform.id: (context) => Myform(),
       },
     );
   }

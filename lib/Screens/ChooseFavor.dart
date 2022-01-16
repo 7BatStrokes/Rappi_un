@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
 import 'package:rappi_un/Screens/Home.dart';
 import 'package:rappi_un/Screens/Restaurants.dart';
+import 'package:rappi_un/Screens/myForm.dart';
 import 'package:rappi_un/icons/my_flutter_app_icons.dart';
 import 'package:rappi_un/icons/my_new_icon_icons.dart';
 
@@ -97,6 +98,10 @@ class MyChoose extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               print("SupSup");
+                              Navigator.push(context, // Navega a la siguiente ruta llamda myHome reemplazando la ventana actual
+                                  MaterialPageRoute(builder: (context) {
+                                    return Myform();
+                                  }));
                             },
                             child: Container(
                               decoration: BoxDecoration(
