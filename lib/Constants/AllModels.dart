@@ -258,3 +258,9 @@ class CustAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   final Size preferredSize = Size.fromHeight(kToolbarHeight + 5);
 }
+class Restaurant {
+  String name;
+  String desc;
+  Map<String, List<String>> menu;
+  Restaurant(this.name,this.desc,this.menu);
+}

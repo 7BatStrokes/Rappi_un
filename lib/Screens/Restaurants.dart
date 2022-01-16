@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
 
 
 class Restaurants extends StatefulWidget {
   static const String id = 'Restaurants';
-  String myStr = 'hola';
+  var lista = ['Esta','lista','Es de prueba','Despues se usa firebase'];
+  String vista = 'Selecciona una opcion';
   @override
   _TheAppState createState() => _TheAppState();
 }
@@ -35,7 +34,9 @@ class _TheAppState extends State<Restaurants> {
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.only(top: 40, bottom: 40, left: 20, right: 20),
+
           ),
-        ));
+        )
+    );
   }
 }
