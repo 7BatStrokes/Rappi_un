@@ -76,3 +76,7 @@ flutter:
     - family: Manrope Thin
       fonts:
         - asset: fonts/Manrope-Thin.otf
+
+    - family: MyNewIcon
+      fonts:
+        - asset: fonts/MyNewIcon.ttf

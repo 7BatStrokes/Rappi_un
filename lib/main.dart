@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:rappi_un/Screens/ChooseFavor.dart';
 import 'package:rappi_un/Screens/Home.dart';
+import 'package:rappi_un/Screens/Restaurants.dart';
 import 'package:rappi_un/Screens/Welcome.dart';
 import 'package:rappi_un/Screens/Register.dart';
 import 'package:rappi_un/Screens/Choose.dart';
@@ -25,6 +27,8 @@ class Rappi extends StatelessWidget {
         Welcoming.id: (context) => Welcoming(),
         Register.id: (context) => Register(),
         MyHome.id: (context) => MyHome(),
+        MyChoose.id: (context) => MyChoose(),
+        Restaurants.id: (context) => Restaurants(),
       },
     );
   }

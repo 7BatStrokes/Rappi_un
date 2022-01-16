@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
 import 'package:rappi_un/Screens/Home.dart';
+import 'package:rappi_un/Screens/Restaurants.dart';
 import 'package:rappi_un/icons/my_flutter_app_icons.dart';
-import 'package:rappi_un/Screens/ChooseFavor.dart';
-
+import 'package:rappi_un/icons/my_new_icon_icons.dart';
 
 void main() {
-  runApp(new Choose());
+  runApp(new MyChoose());
 }
 
-class Choose extends StatelessWidget {
-  static const String id = 'Choose';
+class MyChoose extends StatelessWidget {
+  static const String id = 'MyChoose';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class Choose extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    "¿Qué quieres\n  hacer hoy?",
+                    "¿Qué quieres\n  pedir hoy?",
                     style: TextStyle(
                       color: lesCols[6],
                       fontSize: 50,
@@ -40,9 +40,9 @@ class Choose extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               print("Hi");
-                              Navigator.pushReplacement(context, // Navega a la siguiente ruta llamda myHome reemplazando la ventana actual
+                              Navigator.push(context, // Navega a la siguiente ruta llamda myHome reemplazando la ventana actual
                               MaterialPageRoute(builder: (context) {
-                              return MyChoose();
+                              return Restaurants();
                               }));
                             },
                             child: Container(
@@ -67,8 +67,8 @@ class Choose extends StatelessWidget {
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5),
-                                  child: Icon(
-                                    MyFlutterApp.handv2,
+                                  child: Icon( // //Imagen
+                                    MyNewIcon.fast_food,
                                     size: 150,
                                     color: lesCols[6],
                                   ),
@@ -80,7 +80,7 @@ class Choose extends StatelessWidget {
                             height: 8,
                           ),
                           Text(
-                            "Pedir un favor",
+                            "Comida",
                             style: TextStyle(
                               color: lesCols[6],
                               fontSize: 20,
@@ -121,7 +121,7 @@ class Choose extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Icon(
-                                    Icons.directions_bike_outlined,
+                                    MyNewIcon.school,
                                     size: 150,
                                     color: lesCols[6],
                                   ),
@@ -133,7 +133,7 @@ class Choose extends StatelessWidget {
                             height: 8,
                           ),
                           Text(
-                            "Ayudar a alguien",
+                            "Otros",
                             style: TextStyle(
                               color: lesCols[6],
                               fontSize: 20,
@@ -148,7 +148,7 @@ class Choose extends StatelessWidget {
                     flex: 2,
                   ),
                   Text(
-                    "Recuerda que puedes cambiar de rol después",
+                    "Solo puedes tener un favor activo a la vez",
                     style: TextStyle(
                       color: lesCols[6],
                       fontSize: 15,
