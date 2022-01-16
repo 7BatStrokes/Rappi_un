@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:rappi_un/Screens/Chat.dart';
 import 'package:rappi_un/Screens/Home.dart';
 import 'package:rappi_un/Screens/Welcome.dart';
 import 'package:rappi_un/Screens/Choose.dart';
@@ -21,6 +22,8 @@ class Rappi extends StatelessWidget {
         Check.id: (context) => Check(),
         Welcoming.id: (context) => Welcoming(),
         MyHome.id: (context) => MyHome(),
+        Chat.id: (context) => Chat(),
+        Choose.id: (context) => Choose(),
       },
     );
   }

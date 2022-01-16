@@ -40,7 +40,7 @@ class FireMethods {
     User currentUser;
     currentUser = _auth.currentUser!;
 
-    QuerySnapshot query = await fire
+    QuerySnapshot query =  await fire
         .collection("users")
         .where("uid", isEqualTo: currentUser.uid)
         .get();
@@ -158,12 +158,6 @@ class FireMethods {
       "lastdate": DateTime.now(),
       "uid": currentUser.uid,
       "profpic": Random().nextInt(21)
-    });
-
-    DocumentReference docRef =
-        fire.collection("names").doc("KZAAyKRJXPqbDSbqEgwI");
-    docRef.update({
-      "usernames": FieldValue.arrayUnion([currentUser.email])
     });
   }
 

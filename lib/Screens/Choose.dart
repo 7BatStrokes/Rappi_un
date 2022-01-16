@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
+import 'package:rappi_un/Screens/Chat.dart';
 import 'package:rappi_un/Screens/Welcome.dart';
 import 'package:rappi_un/icons/my_flutter_app_icons.dart';
 import 'package:rappi_un/Constants/FirebaseRepository.dart';
@@ -40,6 +41,7 @@ class Choose extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               print("Hi");
+                              Navigator.pushNamed(context, Chat.id);;
                             },
                             child: Container(
                               decoration: BoxDecoration(
