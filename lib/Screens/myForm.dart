@@ -1,8 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
+import 'package:rappi_un/Constants/FirebaseRepository.dart';
 import 'package:rappi_un/Screens/ChooseFavor.dart';
+
+final _firestore = FirebaseFirestore.instance;
+FireRepo _firerepo = FireRepo();
+User user = FirebaseAuth.instance.currentUser!;
 
 class Myform extends StatefulWidget {
   static const String id = 'Form';
@@ -24,6 +31,26 @@ class solicitud{
     this.precio = precio;
   }
 
+}
+
+bool IsAString(String a){
+  bool respuesta = false;
+  String b = '0123456789';
+  for(int i = 0 ; i < a.length ; i++){
+    for(int j = 0 ; j < b.length ; j++){
+      if(a[i]==b[j]){
+        respuesta = true;
+        break;
+      }
+      else{
+        respuesta = false;
+      }
+    }
+    if(respuesta == false){
+      return respuesta;
+    }
+  }
+  return respuesta;
 }
 
 class _TheAppState extends State<Myform> {
@@ -76,8 +103,9 @@ class _TheAppState extends State<Myform> {
                 ),
                 TextField(
                   controller: controler1,
+                  autocorrect: true,
                   autofocus: false,
-                  style: TextStyle(fontSize: 22.0, color: Color(0xFFbdc6cf)),
+                  style: TextStyle(fontSize: 22.0, color: lesCols[7]),
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -103,8 +131,9 @@ class _TheAppState extends State<Myform> {
                 ),
                 TextField(
                   controller: controler2,
+                  autocorrect: true,
                   autofocus: false,
-                  style: TextStyle(fontSize: 22.0, color: Color(0xFFbdc6cf)),
+                  style: TextStyle(fontSize: 22.0, color: lesCols[7]),
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -152,10 +181,14 @@ class _TheAppState extends State<Myform> {
                 TextField(
                   controller: controler3,
                   autofocus: false,
-                  style: TextStyle(fontSize: 22.0, color: Color(0xFFbdc6cf)),
+                  style: TextStyle(fontSize: 22.0, color: lesCols[7]),
                   decoration: InputDecoration(
+                    hintText: 'COP',
                     filled: true,
                     fillColor: Colors.white,
+                    hintStyle: TextStyle(
+                      color: Color(0xFFbdc6cf),
+                    ),
                     contentPadding:
                     const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
                     focusedBorder: OutlineInputBorder(
@@ -171,20 +204,34 @@ class _TheAppState extends State<Myform> {
                 Spacer(),
                 TextButton(
                   onPressed: (){
-                    showDialog(
+                    if(!IsAString(controler3.text)){
+                      showDialog(context: context, builder: (_) => new AlertDialog(
+                        content: Text("Por favor, ingresa únicamente un valor entero, sin ningún caracter adicional"),
+                      ));
+                    }
+                    else{
+                      solicitud s = new solicitud(controler1.text, controler2.text, slider, controler3.text);
+                      showDialog(
                         context: context,
                         builder: (_) => new AlertDialog(
                           title: Text("¿Estas seguro de subir la petición?",textAlign: TextAlign.center,),
-                          content: Text(controler1.text+"\n"+controler2.text+"\n"+slider+"\n"+controler3.text),
+                          content: Text("Estas buscando "+controler1.text+"\n"+"en "+s.lugar+"\n"+s.distancia+"\n"+"por el valor "+s.precio),
                           actions: <Widget>[
                             new FlatButton(
                               onPressed: () {
-                                solicitud s = new solicitud(controler1.text, controler2.text, slider, controler3.text);
+                                _firestore.collection("peticiones").add({
+                                  'objeto': controler1.text,
+                                  'lugar': controler2.text,
+                                  'distancia': slider,
+                                  'precio': controler3.text,
+                                  'solicitante':  user.email,
+                                  'repartidor': '',
+                                });
                                 Navigator.push(context, // Navega a la siguiente ruta llamda myHome reemplazando la ventana actual
                                     MaterialPageRoute(builder: (context) {
                                       return MyChoose();
                                     }));
-                                },
+                              },
                               child: new Text('Confirmar'),
                               textColor: Colors.blue,
                             ),
@@ -195,7 +242,8 @@ class _TheAppState extends State<Myform> {
                             ),
                           ],
                         ),
-                    );
+                      );
+                    }
                   },
                   child: Text(
                     "Publicar",
