@@ -40,7 +40,7 @@ class FireMethods {
     User currentUser;
     currentUser = _auth.currentUser!;
 
-    QuerySnapshot query = await fire
+    QuerySnapshot query =  await fire
         .collection("users")
         .where("uid", isEqualTo: currentUser.uid)
         .get();
@@ -151,21 +151,13 @@ class FireMethods {
 
   //Firebase gets both Normal and Google User's data
   Future<void> addUserDatatoDb(
-      User currentUser, String username, String email) async {
+      User currentUser, String email) async {
     fire.collection("users").doc(currentUser.uid).set({
       "email": currentUser.email != null ? currentUser.email : email,
-      "username": username,
       "firstdate": DateTime.now(),
       "lastdate": DateTime.now(),
-      "key": username.toLowerCase().substring(0, 1),
       "uid": currentUser.uid,
       "profpic": Random().nextInt(21)
-    });
-
-    DocumentReference docRef =
-        fire.collection("names").doc("KZAAyKRJXPqbDSbqEgwI");
-    docRef.update({
-      "usernames": FieldValue.arrayUnion([username])
     });
   }
 

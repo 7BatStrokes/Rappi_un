@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Screens/ChooseFavor.dart';
+import 'package:rappi_un/Screens/Chat.dart';
 import 'package:rappi_un/Screens/Home.dart';
 import 'package:rappi_un/Screens/Restaurants.dart';
 import 'package:rappi_un/Screens/Welcome.dart';
-import 'package:rappi_un/Screens/Register.dart';
 import 'package:rappi_un/Screens/Choose.dart';
 import 'package:rappi_un/Screens/Check.dart';
 
@@ -25,10 +25,11 @@ class Rappi extends StatelessWidget {
       routes: { // Define las otras rutas
         Check.id: (context) => Check(),
         Welcoming.id: (context) => Welcoming(),
-        Register.id: (context) => Register(),
         MyHome.id: (context) => MyHome(),
         MyChoose.id: (context) => MyChoose(),
         Restaurants.id: (context) => Restaurants(),
+        Chat.id: (context) => Chat(),
+        Choose.id: (context) => Choose(),
       },
     );
   }

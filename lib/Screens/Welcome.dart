@@ -37,8 +37,8 @@ class _TheAppState extends State<Welcoming> {
       if (user.email!.split("@")[1] == "unal.edu.co") { //Verifica que el usuario de google sea unal
         print(user.displayName);
         print("New User? " + isNewUser.toString());
-        _firerepo.updatelastdateDatatoDb(user).then((value) { //Guarda la ultima fecha de conexion?
-          Navigator.pushReplacement(context, // Navega a la siguiente ruta llamda choose reemplazando la ventana actual
+        _firerepo.addUserDatatoDb(user, user.email!).then((value) {
+          Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
             return Choose();
           }));
