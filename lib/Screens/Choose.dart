@@ -40,7 +40,6 @@ class Choose extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              print("Hi");
                               Navigator.pushNamed(context, Chat.id);;
                             },
                             child: Container(
@@ -97,10 +96,7 @@ class Choose extends StatelessWidget {
                               print("SupSup");
                               try {
                                 _fireRepo.sadlySignOut();
-                                Navigator.pushReplacement(context,
-                                    MaterialPageRoute(builder: (context) {
-                                      return Welcoming();
-                                    }));
+                                Navigator.pushNamed(context, Welcoming.id);
                               } catch (E) {
                                 print(E);
                               }

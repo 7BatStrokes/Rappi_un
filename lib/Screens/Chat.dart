@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
 import 'package:rappi_un/Constants/FirebaseRepository.dart';
 
@@ -10,20 +11,23 @@ User user = FirebaseAuth.instance.currentUser!;
 String someuser = "eUV9T7YUxDYPwabuPCxe77gaXTR2";
 
 const kSendButtonTextStyle = TextStyle(
-  color: Colors.lightBlueAccent,
+  color: Colors.red,
   fontWeight: FontWeight.bold,
-  fontSize: 18.0,
+  fontSize: 18,
 );
 
-const kMessageTextFieldDecoration = InputDecoration(
-  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+InputDecoration kMessageTextFieldDecoration = InputDecoration(
+  contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
   hintText: 'Type your message here...',
+  hintStyle: TextStyle(
+    color: Colors.green[900],
+  ),
   border: InputBorder.none,
 );
 
-const kMessageContainerDecoration = BoxDecoration(
+BoxDecoration kMessageContainerDecoration = BoxDecoration(
   border: Border(
-    top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+    top: BorderSide(color: Colors.green, width: 2),
   ),
 );
 
@@ -34,11 +38,11 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blueAccent, width: 1.0),
+    borderSide: BorderSide(color: Colors.orange, width: 1.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+    borderSide: BorderSide(color: Colors.purple, width: 2.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
@@ -73,10 +77,19 @@ class _ChatState extends State<Chat> {
           IconButton(
               icon: Icon(Icons.call),
               onPressed: () {
-                print("Hi");
+                print(DateFormat('kk:mm').format(DateTime.now().toLocal()));
               }),
         ],
-        title: Text('Chat'),
+        title: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage(user.photoURL!),
+            ),
+            SizedBox(width: 15),
+            Text(user.displayName!),
+          ],
+        ),
+        centerTitle: true,
         backgroundColor: lesCols[6],
       ),
       backgroundColor: lesCols[5],
@@ -103,15 +116,33 @@ class _ChatState extends State<Chat> {
                   IconButton(
                     onPressed: () {
                       messageTextController.clear();
-                      _firestore.collection('messages').add({
+                      _firestore
+                          .collection('users')
+                          .doc(user.uid)
+                          .collection("chats")
+                          .doc(someuser)
+                          .collection("messages")
+                          .add({
                         'text': messageText,
-                        'sender': user.email,
+                        'sender': user.uid,
+                        'timestamp': DateTime.now().toLocal(),
+                      });
+                      _firestore
+                          .collection('users')
+                          .doc(someuser)
+                          .collection("chats")
+                          .doc(user.uid)
+                          .collection("messages")
+                          .add({
+                        'text': messageText,
+                        'timestamp': DateTime.now().toLocal(),
+                        'sender': user.uid,
                       });
                     },
                     icon: Icon(
                       Icons.send,
                       size: 25,
-                      color: lesCols[6],
+                      color: Colors.green,
                     ),
                   ),
                 ],
@@ -134,12 +165,13 @@ class MessagesStream extends StatelessWidget {
           .collection('chats')
           .doc(someuser)
           .collection('messages')
+          .orderBy("timestamp")
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
             child: CircularProgressIndicator(
-              backgroundColor: Colors.lightBlueAccent,
+              backgroundColor: Colors.green[900],
             ),
           );
         }
@@ -149,11 +181,12 @@ class MessagesStream extends StatelessWidget {
           final messageText = message['text'];
           final messageSender = message['sender'];
 
-          final currentUser = user.email;
+          final currentUser = user.uid;
 
           final messageBubble = MessageBubble(
             sender: messageSender,
             text: messageText,
+            time: message['timestamp'],
             isMe: currentUser == messageSender,
           );
 
@@ -162,7 +195,7 @@ class MessagesStream extends StatelessWidget {
         return Expanded(
           child: ListView(
             reverse: true,
-            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             children: messageBubbles,
           ),
         );
@@ -172,10 +205,15 @@ class MessagesStream extends StatelessWidget {
 }
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble({required this.sender, required this.text, required this.isMe});
+  MessageBubble(
+      {required this.sender,
+      required this.text,
+      required this.isMe,
+      required this.time});
 
   final String sender;
   final String text;
+  final Timestamp time;
   final bool isMe;
 
   @override
@@ -186,23 +224,35 @@ class MessageBubble extends StatelessWidget {
         crossAxisAlignment:
             isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
+          Text(
+            DateFormat('kk:mm').format(time.toDate()),
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: Colors.green[900],
+            ),
+          ),
           Padding(
-            padding: isMe ? EdgeInsets.only(left: 80) : EdgeInsets.only(right: 80),
+            padding:
+                isMe ? EdgeInsets.only(left: 80) : EdgeInsets.only(right: 80),
             child: Material(
+              elevation: 5,
+              shadowColor: isMe ? Colors.green[900] : Colors.green,
               color: isMe ? Colors.green[900] : Colors.transparent,
               borderRadius: isMe
                   ? BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30))
+                      topLeft: Radius.circular(30),
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30))
                   : BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
               child: Padding(
                 padding: const EdgeInsets.all(2),
                 child: Material(
+                  color: isMe ? Colors.white : Colors.green,
                   borderRadius: isMe
                       ? BorderRadius.only(
                           topLeft: Radius.circular(30),
@@ -213,33 +263,14 @@ class MessageBubble extends StatelessWidget {
                           bottomRight: Radius.circular(30),
                           topRight: Radius.circular(30),
                         ),
-                  elevation: 5,
-                  color: isMe ? Colors.white : Colors.green,
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            text,
-                            style: TextStyle(
-                              color: isMe ? Colors.black : Colors.white,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: isMe ? Alignment.bottomLeft : Alignment.bottomRight,
-                          child: Text(
-                            "12:51",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.green[900],
-                            ),
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      text,
+                      style: TextStyle(
+                        color: isMe ? Colors.green[900] : Colors.white,
+                        fontSize: 15,
+                      ),
                     ),
                   ),
                 ),

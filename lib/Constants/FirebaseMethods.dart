@@ -80,7 +80,6 @@ class FireMethods {
   //Signs Out with Google
   Future<void> sadlySignOut() async {
     try {
-      await _googleSignIn.disconnect();
       await _googleSignIn.signOut();
     } catch (e) {
       print(e);
