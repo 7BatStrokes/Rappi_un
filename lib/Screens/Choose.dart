@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
 import 'package:rappi_un/Screens/Home.dart';
+import 'package:rappi_un/Screens/Peticiones.dart';
 import 'package:rappi_un/icons/my_flutter_app_icons.dart';
 import 'package:rappi_un/Screens/ChooseFavor.dart';
 
@@ -106,7 +107,7 @@ class Choose extends StatelessWidget {
                                 _fireRepo.sadlySignOut();
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
-                                      return Welcoming();
+                                      return Peticiones();
                                     }));
                               } catch (E) {
                                 print(E);
