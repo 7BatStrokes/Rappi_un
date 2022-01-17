@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
 import 'package:rappi_un/Constants/FirebaseRepository.dart';
 import 'package:rappi_un/Screens/RestaurantDetail.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:transparent_image/transparent_image.dart';
 final _firestore = FirebaseFirestore.instance;
+
 FireRepo _firerepo = FireRepo();
 String vista = 'Selecciona una opcion';
 
@@ -44,7 +46,7 @@ class _TheAppState extends State<Restaurants> {
         ),
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.only(top: 30, bottom: 30, left: 15, right: 15),
+            padding: EdgeInsets.only(top: 15, bottom: 30, left: 15, right: 15),
             child: FutureBuilder(
                 future: _firerepo.getRestaurants(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -61,13 +63,10 @@ class _TheAppState extends State<Restaurants> {
                           return Container(
                               height: 140,
                               decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: Color(0xFFAAE690),
                                 borderRadius: BorderRadius.circular(35),
                               ),
-                              child: Column(children: [SizedBox(height: 7,),
-                                Text(snapshot.data[index]["nombre"]),
-                                BodyList(snapshot,index)
-                              ],)
+                            child: BodyList(snapshot,index)
                           );
                         });
                   }
@@ -86,22 +85,40 @@ BodyList(this.snapshot,this.index);
     return Row(children: [
       Container(
         width: 95,
-        height: 75,
+        height: 82,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
                 fit: BoxFit.fill,
-                image: NetworkImage(
-                    snapshot.data[index]["imagen"]))),
+                image: FadeInImage.assetNetwork(
+                  placeholder: 'images/loading.gif',
+                  image: snapshot.data[index]["imagen"],
+                ).image,
+            )
+        ),
       ),
       Container(
         width: 155,
-        height: 105,
+        height: 120,
         child: Column(children: [
-          SizedBox(height: 15),
+          Text(snapshot.data[index]["nombre"] ,
+              style: TextStyle(
+                color: lesCols[6],
+                fontSize: 20,
+                fontFamily: "Agrandir Text Bold",
+              )
+          ),
+          SizedBox(height: 3),
           Container(
             height: 65,
-            child:Text(snapshot.data[index]["descripcion"],textAlign: TextAlign.justify,)
+            child:Text(snapshot.data[index]["descripcion"],
+                textAlign: TextAlign.justify,
+              style:TextStyle(
+              color: Colors.black,
+              fontSize: 13.5,
+              fontFamily: "MyFlutterApp",
+            ),
+            )
           ),
          Row(
            children: [SizedBox(width: 15,),if (snapshot.data[index]["estrellas"]>0) buildStar() ,SizedBox(width: 3,),if (snapshot.data[index]["estrellas"]>1) buildStar()
@@ -135,7 +152,8 @@ class buildStar extends StatelessWidget {
     return Icon(
     Icons.star,
       size: 25,
-      color: Colors.amber,
+      color: Colors.yellowAccent[700],
+
     );
   }
 }
