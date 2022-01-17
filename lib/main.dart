@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rappi_un/Screens/ChooseFavor.dart';
 import 'package:rappi_un/Screens/Chat.dart';
 import 'package:rappi_un/Screens/Home.dart';
-import 'package:rappi_un/Screens/Restaurants.dart';
+import 'package:rappi_un/Screens/RestaurantScreenList.dart';
 import 'package:rappi_un/Screens/Welcome.dart';
 import 'package:rappi_un/Screens/Choose.dart';
 import 'package:rappi_un/Screens/Check.dart';

@@ -365,4 +365,16 @@ class FireMethods {
 
     return st;
   }
+  Future<List<DocumentSnapshot>> getRestaurants() async {
+    List<DocumentSnapshot> restaurants = [];
+    QuerySnapshot query = await fire
+        .collection("restaurantes")
+        .get();
+
+    for (var i in query.docs) {
+      restaurants.add(i);
+    }
+    return restaurants;
+  }
+
 }

@@ -55,4 +55,6 @@ class FireRepo {
       _fireMethods.changeUsername(username);
 
   Future<String> getProfilePic(String uid) => _fireMethods.getProfilePic(uid);
+
+  Future<List<DocumentSnapshot>>  getRestaurants() => _fireMethods.getRestaurants();
 }

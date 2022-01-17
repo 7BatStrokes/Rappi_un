@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
 import 'package:rappi_un/Screens/Home.dart';
-import 'package:rappi_un/Screens/Restaurants.dart';
+import 'package:rappi_un/Screens/RestaurantScreenList.dart';
 import 'package:rappi_un/icons/my_flutter_app_icons.dart';
 import 'package:rappi_un/icons/my_new_icon_icons.dart';
 
