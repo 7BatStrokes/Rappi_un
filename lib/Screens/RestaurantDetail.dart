@@ -56,7 +56,16 @@ class RestaurantDetail extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 5,),
-              Text(snapshot.get("descripcionLarga")),
+              Container(
+                height: 72,
+
+                child:SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Text(snapshot.get("descripcionLarga"),
+                ),
+                ),
+              ),
+
               Divider(height: 15,thickness: 3,color: Colors.black,),
               Text("Platillos"),
               Expanded(

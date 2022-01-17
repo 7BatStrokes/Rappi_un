@@ -46,14 +46,20 @@ class _TheAppState extends State<Restaurants> {
         ),
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.only(top: 15, bottom: 30, left: 15, right: 15),
+            padding: EdgeInsets.only(top: 15, bottom: 30, left: 15,right: 3),
             child: FutureBuilder(
                 future: _firerepo.getRestaurants(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
                   } else {
-                    return ListView.separated(
+                    return Scrollbar(
+                      isAlwaysShown: true,
+                      thickness: 5,
+                      interactive: true,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 17),
+                      child: ListView.separated(
                         separatorBuilder: (BuildContext context, int index) =>
                             const SizedBox(height: 20),
                         itemCount: snapshot.data.length,
@@ -68,7 +74,9 @@ class _TheAppState extends State<Restaurants> {
                               ),
                             child: BodyList(snapshot,index)
                           );
-                        });
+                        }
+                        ),
+                    ));
                   }
                 }),
           ),
