@@ -31,18 +31,20 @@ class _TheAppState extends State<Welcoming> {
   String goog = "images/googleicon.png";
 
   void authenticateUser(User user) {
-    print("Here Second");
     _firerepo.authenticateUser(user).then((isNewUser) {
       if (user.email!.split("@")[1] == "unal.edu.co") {
-        print(user.displayName);
         print("New User? " + isNewUser.toString());
-        _firerepo.addUserDatatoDb(user, user.email!).then((value) {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) {
-            return Choose();
-          }));
-        });
-      } else {
+        if (isNewUser) {
+          _firerepo.addUserDatatoDb(user, user.email!).then((value) {
+            Navigator.pushNamed(context, Choose.id);
+          });
+        } else {
+          _firerepo.updatelastdateDatatoDb(user).then((value) {
+            Navigator.pushNamed(context, Choose.id);
+          });
+        }
+      }
+      else {
         return (
             showDialog(
             context: context,
@@ -122,7 +124,8 @@ class _TheAppState extends State<Welcoming> {
                 height: 40,
               ),
               Image(
-                  image: AssetImage("images/rappi.png")
+                  image: AssetImage("images/App.png"),
+
               ),
               SizedBox(
                 height: 40,

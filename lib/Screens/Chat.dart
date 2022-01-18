@@ -84,6 +84,7 @@ class _ChatState extends State<Chat> {
           children: [
             CircleAvatar(
               backgroundImage: NetworkImage(user.photoURL!),
+              backgroundColor: lesCols[6],
             ),
             SizedBox(width: 15),
             Text(user.displayName!),
