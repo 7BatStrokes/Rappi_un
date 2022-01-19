@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
 import 'package:rappi_un/Constants/FirebaseRepository.dart';
-import 'package:rappi_un/Screens/RestaurantDetail.dart';
+import 'package:rappi_un/Screens/RestaurantDetailStatefull.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:rappi_un/Screens/RestaurantDetailStatefull.dart';
 import 'package:transparent_image/transparent_image.dart';
+
 final _firestore = FirebaseFirestore.instance;
 
 FireRepo _firerepo = FireRepo();
@@ -46,7 +48,7 @@ class _TheAppState extends State<Restaurants> {
         ),
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.only(top: 15, bottom: 30, left: 15,right: 3),
+            padding: EdgeInsets.only(top: 15, bottom: 30, left: 15, right: 3),
             child: FutureBuilder(
                 future: _firerepo.getRestaurants(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -54,29 +56,28 @@ class _TheAppState extends State<Restaurants> {
                     return Center(child: CircularProgressIndicator());
                   } else {
                     return Scrollbar(
-                      isAlwaysShown: true,
-                      thickness: 5,
-                      interactive: true,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 17),
-                      child: ListView.separated(
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const SizedBox(height: 20),
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          // Aca se construye lo que sea que quiero el numero de item cuonts veces
+                        isAlwaysShown: true,
+                        thickness: 5,
+                        interactive: true,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 17),
+                          child: ListView.separated(
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const SizedBox(height: 20),
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                // Aca se construye lo que sea que quiero el numero de item cuonts veces
 
-                          return Container(
-                              height: 140,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFAAE690),
-                                borderRadius: BorderRadius.circular(35),
-                              ),
-                            child: BodyList(snapshot,index)
-                          );
-                        }
-                        ),
-                    ));
+                                return Container(
+                                    height: 140,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFAAE690),
+                                      borderRadius: BorderRadius.circular(35),
+                                    ),
+                                    child: BodyList(snapshot, index));
+                              }),
+                        ));
                   }
                 }),
           ),
@@ -85,9 +86,9 @@ class _TheAppState extends State<Restaurants> {
 }
 
 class BodyList extends StatelessWidget {
-AsyncSnapshot snapshot;
-int index;
-BodyList(this.snapshot,this.index);
+  AsyncSnapshot snapshot;
+  int index;
+  BodyList(this.snapshot, this.index);
   @override
   Widget build(BuildContext context) {
     return Row(children: [
@@ -97,56 +98,71 @@ BodyList(this.snapshot,this.index);
         decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-                fit: BoxFit.fill,
-                image: FadeInImage.assetNetwork(
-                  placeholder: 'images/loading.gif',
-                  image: snapshot.data[index]["imagen"],
-                ).image,
-            )
-        ),
+              fit: BoxFit.fill,
+              image: FadeInImage.assetNetwork(
+                placeholder: 'images/loading.gif',
+                image: snapshot.data[index]["imagen"],
+              ).image,
+            )),
       ),
       Container(
         width: 155,
         height: 120,
         child: Column(children: [
-          Text(snapshot.data[index]["nombre"] ,
+          Text(snapshot.data[index]["nombre"],
               style: TextStyle(
                 color: lesCols[6],
                 fontSize: 20,
                 fontFamily: "Agrandir Text Bold",
-              )
-          ),
+              )),
           SizedBox(height: 3),
           Container(
-            height: 65,
-            child:Text(snapshot.data[index]["descripcion"],
+              height: 65,
+              child: Text(
+                snapshot.data[index]["descripcion"],
                 textAlign: TextAlign.justify,
-              style:TextStyle(
-              color: Colors.black,
-              fontSize: 13.5,
-              fontFamily: "MyFlutterApp",
-            ),
-            )
-          ),
-         Row(
-           children: [SizedBox(width: 15,),if (snapshot.data[index]["estrellas"]>0) buildStar() ,SizedBox(width: 3,),if (snapshot.data[index]["estrellas"]>1) buildStar()
-             ,SizedBox(width: 3,), if (snapshot.data[index]["estrellas"]>2) buildStar(),
-             SizedBox(width: 3,),if (snapshot.data[index]["estrellas"]>3) buildStar(),SizedBox(width: 3,),
-           if (snapshot.data[index]["estrellas"]>4) buildStar()],
-         )
-
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 13.5,
+                  fontFamily: "MyFlutterApp",
+                ),
+              )),
+          Row(
+            children: [
+              SizedBox(
+                width: 15,
+              ),
+              if (snapshot.data[index]["estrellas"] > 0) buildStar(),
+              SizedBox(
+                width: 3,
+              ),
+              if (snapshot.data[index]["estrellas"] > 1) buildStar(),
+              SizedBox(
+                width: 3,
+              ),
+              if (snapshot.data[index]["estrellas"] > 2) buildStar(),
+              SizedBox(
+                width: 3,
+              ),
+              if (snapshot.data[index]["estrellas"] > 3) buildStar(),
+              SizedBox(
+                width: 3,
+              ),
+              if (snapshot.data[index]["estrellas"] > 4) buildStar()
+            ],
+          )
         ]),
       ),
       SizedBox(width: 7),
       Container(
-         child: IconButton(
-            icon: Icon(Icons.arrow_forward),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>RestaurantDetail(snapshot.data[index])));
-            },
+          child: IconButton(
+        icon: Icon(Icons.arrow_forward),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => RestaurantDetailStateful(snapshot:  snapshot.data[index] )));
+        },
       )),
-    ]
-      );
+    ]);
   }
 }
 
@@ -158,10 +174,9 @@ class buildStar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Icon(
-    Icons.star,
+      Icons.star,
       size: 25,
       color: Colors.yellowAccent[700],
-
     );
   }
 }
