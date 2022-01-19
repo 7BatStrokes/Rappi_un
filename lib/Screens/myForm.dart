@@ -238,7 +238,6 @@ class _TheAppState extends State<Myform> {
                       ));
                     }
                     else{
-
                       showDialog(
                         context: context,
                         builder: (_) => new AlertDialog(
@@ -254,7 +253,7 @@ class _TheAppState extends State<Myform> {
                                     await firebase_storage.FirebaseStorage.instance.ref('imagenes').child(timeKey.toString()).putFile(_image);
                                     name = timeKey.toString();
                                   }catch (e) {
-                                    print("paso algo bru, ¿que? sabra mi madre");
+                                    //
                                   }
                                 }
                                 _firestore.collection("peticiones").add({

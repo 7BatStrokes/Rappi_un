@@ -57,4 +57,6 @@ class FireRepo {
   Future<String> getProfilePic(String uid) => _fireMethods.getProfilePic(uid);
 
   Future<List<DocumentSnapshot>>  getRestaurants() => _fireMethods.getRestaurants();
+
+  Future<List<DocumentSnapshot>>  getPeticiones() => _fireMethods.getPeticiones();
 }

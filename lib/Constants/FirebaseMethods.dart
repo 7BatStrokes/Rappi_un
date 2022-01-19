@@ -377,4 +377,13 @@ class FireMethods {
     return restaurants;
   }
 
+  Future<List<DocumentSnapshot>> getPeticiones() async{
+    List<DocumentSnapshot> peticiones = [];
+    QuerySnapshot query = await fire.collection("peticiones").get();
+    for(var i in query.docs){
+      peticiones.add(i);
+    }
+    return peticiones;
+  }
+
 }
