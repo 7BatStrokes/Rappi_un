@@ -4,8 +4,8 @@ import 'package:rappi_un/Constants/Decorations.dart';
 List<Color?> lesCols = [
   Colors.greenAccent[700],
   Colors.greenAccent[400],
-  Colors.greenAccent[200],
-  Colors.green[300],
+  Colors.green[500],
+  Colors.green[400],
   Colors.white,
   Colors.green[100],
   Colors.green[900],
@@ -180,6 +180,95 @@ class PlayContainer extends StatelessWidget {
                 colors: [colorstart, colorend]),
             borderRadius: BorderRadius.circular(25),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class Favour extends StatelessWidget {
+  Favour(
+      { //required this.imageNetwork,
+        required this.minDistance,
+        required this.compensation,
+        required this.maxDistance,
+        required this.show,
+        required this.title});
+
+  final String title;
+  final int compensation;
+  final bool show;
+  final int minDistance;
+  final int maxDistance;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      constraints: BoxConstraints.expand(
+          height: MediaQuery.of(context).size.height * 0.1,
+          width: MediaQuery.of(context).size.width * 0.8),
+      decoration: BoxDecoration(
+        color: Colors.green[200],
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            Container(
+              child: LayoutBuilder(builder: (context, constraint) {
+                return new Icon(
+                    Icons.account_circle_outlined,
+                    color: Colors.black,
+                    size: constraint.biggest.height);
+              }),
+            ),
+            Padding(padding: EdgeInsets.only(left: 5),
+              child: Padding(
+                padding: EdgeInsets.all(5),
+                child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text(
+                          "\$"+compensation.toString(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              backgroundColor: Colors.white,
+                              color: Colors.green[900]
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 2,
+                        right: 2,
+                        child: Text(
+                          minDistance.toString()+" - "+maxDistance.toString()+"Km",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green[900]
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          title,
+                          softWrap: true,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green[900]
+                          ),
+                        ),
+                      ),
+                    ]
+                ),
+              ),)
+          ],
         ),
       ),
     );

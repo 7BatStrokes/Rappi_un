@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Screens/Chat.dart';
+import 'package:rappi_un/Screens/EstadoPedido.dart';
+import 'package:rappi_un/Screens/Favores.dart';
 import 'package:rappi_un/Screens/Home.dart';
 import 'package:rappi_un/Screens/Welcome.dart';
 import 'package:rappi_un/Screens/Choose.dart';
@@ -24,6 +26,8 @@ class Rappi extends StatelessWidget {
         MyHome.id: (context) => MyHome(),
         Chat.id: (context) => Chat(),
         Choose.id: (context) => Choose(),
+        Favores.id: (context) => Favores(),
+        Estado.id: (context) => Estado(),
       },
     );
   }

@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/FirebaseRepository.dart';
 import 'package:rappi_un/Screens/Choose.dart';
+import 'package:rappi_un/Screens/EstadoPedido.dart';
+import 'package:rappi_un/Screens/Favores.dart';
 import 'package:rappi_un/Screens/MainMenu.dart';
 import 'package:rappi_un/Screens/Welcome.dart';
 
@@ -15,7 +17,7 @@ class Check extends StatelessWidget {
     return FutureBuilder<User>(
         future: _repo.getCurrentUser(),
         builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-          return snapshot.hasData ? Menu(0) : Welcoming();
+          return snapshot.hasData ? Estado() : Estado();
         });
   }
 }

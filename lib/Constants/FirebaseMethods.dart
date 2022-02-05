@@ -318,13 +318,10 @@ class FireMethods {
   }
 
   Future<List<DocumentSnapshot>> initiaterequests() async {
-    User cu = await getCurrentUser();
     List<DocumentSnapshot> requests = [];
 
     QuerySnapshot query = await fire
-        .collection("users")
-        .doc(cu.uid)
-        .collection("newfriends")
+        .collection("favores")
         .get();
 
     for (var i in query.docs) {
@@ -332,6 +329,14 @@ class FireMethods {
     }
 
     return requests;
+  }
+
+  Future<DocumentSnapshot> initiateStatus(String docID) async {
+
+    DocumentSnapshot query = await fire
+        .collection("favores").doc(docID).get();
+
+    return query;
   }
 
   Future<bool> ismyFriend(String search) async {
