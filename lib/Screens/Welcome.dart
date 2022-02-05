@@ -125,7 +125,6 @@ class _TheAppState extends State<Welcoming> {
               ),
               Image(
                   image: AssetImage("images/App.png"),
-
               ),
               SizedBox(
                 height: 40,

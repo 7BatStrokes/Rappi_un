@@ -10,12 +10,6 @@ FireRepo _firerepo = FireRepo();
 User user = FirebaseAuth.instance.currentUser!;
 String someuser = "eUV9T7YUxDYPwabuPCxe77gaXTR2";
 
-const kSendButtonTextStyle = TextStyle(
-  color: Colors.red,
-  fontWeight: FontWeight.bold,
-  fontSize: 18,
-);
-
 InputDecoration kMessageTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
   hintText: 'Type your message here...',
@@ -31,22 +25,6 @@ BoxDecoration kMessageContainerDecoration = BoxDecoration(
   ),
 );
 
-const kTextFieldDecoration = InputDecoration(
-  hintText: 'Enter a value',
-  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-  border: OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-  enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.orange, width: 1.0),
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-  focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.purple, width: 2.0),
-    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-  ),
-);
-
 class Chat extends StatefulWidget {
   static const String id = 'chat_screen';
   @override
@@ -55,7 +33,6 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
   final messageTextController = TextEditingController();
-  final _auth = FirebaseAuth.instance;
 
   late String messageText;
 

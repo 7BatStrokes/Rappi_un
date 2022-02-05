@@ -19,6 +19,9 @@ class FireRepo {
   Future<void> addUserDatatoDb(User user, String email) =>
       _fireMethods.addUserDatatoDb(user, email);
 
+  Future<DocumentSnapshot> initiateStatus(String docID) =>
+      _fireMethods.initiateStatus(docID);
+
   Future<void> sadlySignOut() => _fireMethods.sadlySignOut();
 
   Future<bool> isSignedIn() => _fireMethods.isSignedIn();
