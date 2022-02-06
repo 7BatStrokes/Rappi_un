@@ -56,7 +56,7 @@ class _TheAppState extends State<Peticiones>{
               color: lesCols[4],
               iconSize: 30,
               onPressed: () {
-                print("BaiBai");
+                Navigator.pop(context);
               },
             );
           },

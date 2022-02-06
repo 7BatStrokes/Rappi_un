@@ -45,8 +45,7 @@ class Choose extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              print("Hi");
-                              Navigator.pushReplacement(context, // Navega a la siguiente ruta llamda myHome reemplazando la ventana actual
+                              Navigator.push(context, // Navega a la siguiente ruta llamda myHome reemplazando la ventana actual
                               MaterialPageRoute(builder: (context) {
                               return MyChoose();
                               }));
@@ -103,7 +102,7 @@ class Choose extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               try {
-                                Navigator.pushReplacement(context,
+                                Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                       return Peticiones();
                                     }));
