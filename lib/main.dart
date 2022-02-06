@@ -4,6 +4,7 @@ import 'package:rappi_un/Screens/ChooseFavor.dart';
 import 'package:rappi_un/Screens/Chat.dart';
 import 'package:rappi_un/Screens/Home.dart';
 import 'package:rappi_un/Screens/Peticiones.dart';
+import 'package:rappi_un/Screens/Reporte.dart';
 import 'package:rappi_un/Screens/RestaurantScreenList.dart';
 import 'package:rappi_un/Screens/Welcome.dart';
 import 'package:rappi_un/Screens/Choose.dart';
@@ -34,6 +35,7 @@ class Rappi extends StatelessWidget {
         Choose.id: (context) => Choose(),
         Myform.id: (context) => Myform(),
         Peticiones.id: (context) => Peticiones(),
+        Reporte.id: (context) => Reporte()
       },
     );
   }

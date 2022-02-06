@@ -59,4 +59,6 @@ class FireRepo {
   Future<List<DocumentSnapshot>>  getRestaurants() => _fireMethods.getRestaurants();
 
   Future<List<DocumentSnapshot>>  getPeticiones() => _fireMethods.getPeticiones();
+
+  Future<String>  getdatos() => _fireMethods.getdatos();
 }

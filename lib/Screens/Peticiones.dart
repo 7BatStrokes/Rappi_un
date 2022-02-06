@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
 import 'package:rappi_un/Constants/FirebaseRepository.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:rappi_un/Screens/Reporte.dart';
 
 import 'Choose.dart';
 
@@ -19,110 +21,98 @@ class Peticiones extends StatefulWidget{
 }
 
 class _TheAppState extends State<Peticiones>{
+  List <DocumentSnapshot> allrequests = [];
+
+  void reqs() async{
+    allrequests = await _fireRepo.getPeticiones();
+    setState(() {});
+  }
   @override
   void initState() {
     super.initState();
+    reqs();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lesCols[5],
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: lesCols[6],
+        child: Icon(
+          Icons.refresh,
+          color: lesCols[4],
+        ),
+        onPressed: () => setState(() {
+        }),
+      ),
       appBar: AppBar(
         backgroundColor: lesCols[6],
-        centerTitle: true,
-        title: Text("Peticiones"),
+        elevation: 0,
         leading: Builder(
-          builder: (BuildContext context) {
+          builder: (BuildContext context){
             return IconButton(
-              icon: const Icon(Icons.arrow_back),
+              icon: Icon(Icons.arrow_back_ios),
+              color: lesCols[4],
+              iconSize: 30,
               onPressed: () {
-                Navigator.push(context, // Navega a la siguiente ruta llamda myHome reemplazando la ventana actual
-                MaterialPageRoute(builder: (context) {
-                    return Choose();
-                }));
+                print("BaiBai");
               },
             );
           },
         ),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(top: 15, bottom: 30, left: 15,right: 3),
-          child: FutureBuilder(
-            future: _fireRepo.getPeticiones(),
-            builder: (BuildContext context, AsyncSnapshot snapshot){
-              if(snapshot.connectionState == ConnectionState.waiting){
-                return Center(child: CircularProgressIndicator(),);
-              } else {
-                return Scrollbar(
-                    isAlwaysShown: true,
-                    thickness: 5,
-                    interactive: true,
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 17),
-                      child: ListView.separated(
-                          separatorBuilder: (BuildContext context, int index) =>
-                          const SizedBox(height: 20),
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            // Aca se construye lo que sea que quiero el numero de item cuonts veces
-
-                            return Container(
-                                height: 200,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFAAE690),
-                                  borderRadius: BorderRadius.circular(35),
-                                ),
-                                child: BodyList(snapshot,index)
-                            );
-                          }
-                      ),
-                    ));
-              }
-          },
-          ),
+        title: Text(
+          "Lista de Favores",
+          style: TextStyle(
+              color: lesCols[4], fontSize: 25, fontWeight: FontWeight.bold),
         ),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+              onPressed: (){
+                Navigator.push(context, // Navega a la siguiente ruta llamda myHome reemplazando la ventana actual
+                    MaterialPageRoute(builder: (context) {
+                      return Reporte();
+                    }));
+              },
+              icon: Icon(Icons.account_box))
+        ],
       ),
-    );
-  }
-}
-
-class BodyList extends StatelessWidget{
-  AsyncSnapshot snapshot;
-  int index;
-  BodyList(this.snapshot,this.index);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-        Container(
-          height: 20,
-          child: Text(snapshot.data[index]["objeto"],
+      body: Padding(
+        padding: EdgeInsets.all(25),
+        child: ListView(
+          children: <Widget>[
+            Text("Favores disponibles",
               style: TextStyle(
-              color: lesCols[6],
-              fontSize: 20,
-              fontFamily: "Agrandir Text Bold",
-              )
-          ),
+                color: lesCols[7],
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 15),
+            ListView(
+              primary: true,
+              shrinkWrap: true,
+              padding: EdgeInsets.only(left: 15, right: 15),
+              children: allrequests.map((value) {
+                return Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () => print("Oaaa"),
+                      child: Favour(
+                        title: value["lugar"],
+                        compensation: value["precio"],
+                        maxDistance: value["distancia"],
+                      ),
+                    ),
+                    SizedBox(height: 15)
+                  ],
+                );
+              }).toList(),
+            ),
+          ],
         ),
-      if(snapshot.data[index]["imagen"]!="")
-        Container(
-          height: 20,
-          alignment: Alignment.center,
-          child: Text(texto(snapshot.data[index]["imagen"]).toString()),
-          //child: Text(snapshot.data[index]["imagen"]),
-        )
-      ],
+      ),
     );
   }
-}
-
-Future<String> texto(String name) async{
-  String downloadURL = await firebase_storage.FirebaseStorage.instance
-      .ref("imagenes").child(name)
-      .getDownloadURL();
-
-  print(downloadURL);
-  return downloadURL;
 }

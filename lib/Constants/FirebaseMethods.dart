@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rappi_un/Constants/AppRepository.dart';
+import 'package:rappi_un/Constants/FirebaseRepository.dart';
 
 //This Might come in handy someday
 //String docId;
@@ -359,7 +360,6 @@ class FireMethods {
 
   Future<String> getProfilePic(String uid) async {
     DocumentSnapshot doc = await fire.collection("users").doc(uid).get();
-
     int number = doc["profpic"];
     String st = 'images/$number.png';
 
@@ -384,6 +384,13 @@ class FireMethods {
       peticiones.add(i);
     }
     return peticiones;
+  }
+
+  Future <String> getdatos() async{
+    User cu = await getCurrentUser();
+    FireRepo _fireRepo = FireRepo();
+    String a = FirebaseFirestore.instance.collection("notas").doc("jgomezfl@unal.edu.co").get() as String;
+    return a;
   }
 
 }
