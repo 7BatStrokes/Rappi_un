@@ -21,6 +21,7 @@ class Choose extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: lesCols[5],
+
         body: SafeArea(
           child: Padding(
               padding: EdgeInsets.only(

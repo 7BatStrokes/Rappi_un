@@ -16,6 +16,16 @@ class MyChoose extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: lesCols[5],
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: lesCols[6],
+        child: Icon(
+          Icons.arrow_back,
+          color: lesCols[4],
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        }
+      ),
         body: SafeArea(
           child: Padding(
               padding: EdgeInsets.only(
@@ -25,6 +35,7 @@ class MyChoose extends StatelessWidget {
               right: 20),
               child: Column(
                 children: [
+
                   Text(
                     "¿Qué quieres\n  pedir hoy?",
                     style: TextStyle(
