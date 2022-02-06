@@ -60,5 +60,5 @@ class FireRepo {
 
   Future<List<DocumentSnapshot>>  getPeticiones() => _fireMethods.getPeticiones();
 
-  Future<String>  getdatos() => _fireMethods.getdatos();
+  Future<DocumentSnapshot>  getdatos(String email) => _fireMethods.getdatos(email);
 }

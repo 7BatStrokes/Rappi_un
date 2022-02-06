@@ -102,9 +102,7 @@ class Choose extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              print("SupSup");
                               try {
-                                _fireRepo.sadlySignOut();
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) {
                                       return Peticiones();

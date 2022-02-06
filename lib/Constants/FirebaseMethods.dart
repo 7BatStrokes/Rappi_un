@@ -386,11 +386,10 @@ class FireMethods {
     return peticiones;
   }
 
-  Future <String> getdatos() async{
-    User cu = await getCurrentUser();
-    FireRepo _fireRepo = FireRepo();
-    String a = FirebaseFirestore.instance.collection("notas").doc("jgomezfl@unal.edu.co").get() as String;
-    return a;
+  Future<DocumentSnapshot> getdatos(String email) async{
+    User cu=await getCurrentUser();
+    DocumentSnapshot doc = await fire.collection("notas").doc(email).get();
+    return doc;
   }
 
 }

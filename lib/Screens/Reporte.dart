@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
 import 'package:rappi_un/Constants/FirebaseRepository.dart';
 
-FireRepo _fireRepo = FireRepo();
+final _firestore = FirebaseFirestore.instance;
+FireRepo _firerepo = FireRepo();
+User user = FirebaseAuth.instance.currentUser!;
 
 class Reporte extends StatelessWidget{
   static const String id = "Reporte";
@@ -18,13 +21,12 @@ class Reporte extends StatelessWidget{
         child: Padding(
           padding: EdgeInsets.only(top: 40, bottom: 40, left: 0, right: 0),
           child: FutureBuilder(
-              future: _fireRepo.getdatos(),
+              future: _firerepo.getdatos(user.email.toString()),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 } else {
-                  print(snapshot);
-                  return Text("data");
+                  return Text(snapshot.data["ganancia"]);
                 }
               }),
           ),
