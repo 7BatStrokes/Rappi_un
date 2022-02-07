@@ -10,6 +10,7 @@ import 'package:rappi_un/Constants/FirebaseRepository.dart';
 import 'package:rappi_un/Screens/ChooseFavor.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:image_picker/image_picker.dart';
+import 'package:rappi_un/Screens/EstadoPedidoCompra.dart';
 
 final _firestore = FirebaseFirestore.instance;
 FireRepo _firerepo = FireRepo();
@@ -267,7 +268,7 @@ class _TheAppState extends State<Myform> {
                                 });
                                 Navigator.push(context, // Navega a la siguiente ruta llamda myHome reemplazando la ventana actual
                                     MaterialPageRoute(builder: (context) {
-                                      return MyChoose();
+                                      return EstadoPedidoCompra(precio: int.parse(controler3.text), objeto: controler1.text);
                                     }));
                               },
                               child: new Text('Confirmar'),
