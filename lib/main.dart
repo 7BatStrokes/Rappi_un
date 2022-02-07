@@ -10,6 +10,8 @@ import 'package:rappi_un/Screens/Welcome.dart';
 import 'package:rappi_un/Screens/Choose.dart';
 import 'package:rappi_un/Screens/Check.dart';
 import 'package:rappi_un/Screens/myForm.dart';
+import 'package:rappi_un/Screens/EstadoPedidoCompra.dart';
+
 
 void main() async {
   //Este main inicializa el proyecto y conecta a firebase
@@ -35,7 +37,7 @@ class Rappi extends StatelessWidget {
         Choose.id: (context) => Choose(),
         Myform.id: (context) => Myform(),
         Peticiones.id: (context) => Peticiones(),
-        Reporte.id: (context) => Reporte()
+        Reporte.id: (context) => Reporte(),
       },
     );
   }

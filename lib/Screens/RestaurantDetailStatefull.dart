@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
+import 'package:rappi_un/Screens/EstadoPedidoCompra.dart';
 import 'package:rappi_un/icons/awesome5_icons.dart';
 import 'package:rappi_un/icons/shopping_icons.dart';
 import 'package:rappi_un/Constants/FirebaseRepository.dart';
@@ -310,10 +311,8 @@ class _TheAppState extends State<RestaurantDetailStateful> {
                                   'solicitante':  user.email,
                                   'repartidor': '',
                                 });
-                                Navigator.push(context, // Navega a la siguiente ruta llamda myHome reemplazando la ventana actual
-                                    MaterialPageRoute(builder: (context) {
-                                      return MyChoose();
-                                    }));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => EstadoPedidoCompra(precio: finalPrice(), objeto: strPlatillosNombre(),)));
                               },
                               child: new Text('Confirmar'),
                               textColor: Colors.blue,
@@ -351,6 +350,16 @@ String strPlatillos(){
   }
   return rt;
 }
+  String strPlatillosNombre(){
+    String rt="";
+    for (int i=0; i<counter.length ; i++){
+      if (counter[i]!=0){
+        rt+=(widget.snapshot.get("platillos")[i]["nombre"])+"\n";
+      }
+    }
+    return rt;
+  }
+
 
 }
 
