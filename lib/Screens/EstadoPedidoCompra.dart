@@ -4,6 +4,8 @@ import 'package:flutter/painting.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
 import 'package:rappi_un/icons/awesome5_icons.dart';
 
+import 'Chat.dart';
+
 
 class EstadoPedidoCompra extends StatefulWidget {
   static const String id = 'EstadoPedidoCompra';
@@ -66,9 +68,9 @@ class _TheAppState extends State<EstadoPedidoCompra> {
                   icon: const Icon(
                       Awesome5.snapchat),
                   onPressed: () {
-
-
-                  }
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Chat()));
+                  },
                   ),
 
               ],
