@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
@@ -11,25 +12,167 @@ User user = FirebaseAuth.instance.currentUser!;
 class Reporte extends StatelessWidget{
   static const String id = "Reporte";
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lesCols[5],
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(top: 40, bottom: 40, left: 0, right: 0),
           child: FutureBuilder(
               future: _fireRepo.getdatos(user.email.toString()),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 } else {
-                  print(snapshot);
-                  return Text("data");
+                  int Total = int.parse(snapshot.data["total"].toString());
+                  int pedidos = int.parse(snapshot.data["pedidos"].toString());
+                  List<PieChartSectionData> sectionsChart = [
+                    PieChartSectionData(
+                      //snapshot.data["pedido"]*100/snapshot.data["total"]
+                      value: pedidos*100/Total,
+                      title: "Completadas",
+                      showTitle: true,
+                      color: Colors.orange,
+                      radius: 100,
+                    ),
+                    PieChartSectionData(
+                      value: (Total-pedidos)*100/Total,
+                      title: "Fallo",
+                      showTitle: true,
+                      color: Colors.blue,
+                      radius: 100,
+                    )
+                  ];
+                  return Scrollbar(
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(top: 40, bottom: 40, left: 0, right: 0),
+                          child: Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: <Widget>[
+                                Container(
+                                  color: lesCols[4],
+                                  child: Align(
+                                    heightFactor: 2,
+                                    alignment: Alignment.center,
+                                    child: Text("Te has esforzado al maximo!",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: lesCols[3],
+                                        fontSize: 25,
+                                        fontFamily: "Agrandir Text Bold",
+                                      ),),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(padding: EdgeInsets.only(bottom: 40, left: 10, right: 10),
+                          child: Container(
+                            color: lesCols[4],
+                            child: Row(
+                              children: <Widget>[
+                                Positioned(child: Text("Pedidos"+"\n"+ "Completados",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                      fontSize: 25,
+                                      fontFamily: "Agrandir Text Bold",
+                                    )),
+                                  left: 2,
+                                ),
+                                Spacer(),
+                                Spacer(),
+                                Spacer(),
+                                Positioned(child: Text(snapshot.data["pedidos"],
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: lesCols[6],
+                                      fontSize: 50,
+                                      fontFamily: "Agrandir Text Bold",
+                                    )),)
+                              ],
+                            ),
+                          ),),
+                        Padding(padding: EdgeInsets.only(bottom: 40, left: 10, right: 10),
+                          child: Container(
+                            color: lesCols[4],
+                            child: Row(
+                              children: <Widget>[
+                                Positioned(child: Text("Dinero"+"\n"+ "Ganado",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                      fontSize: 25,
+                                      fontFamily: "Agrandir Text Bold",
+                                    )),
+                                  left: 2,
+                                ),
+                                Spacer(),
+                                Spacer(),
+                                Spacer(),
+                                Positioned(child: Text(snapshot.data["ganancia"],
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: lesCols[6],
+                                      fontSize: 50,
+                                      fontFamily: "Agrandir Text Bold",
+                                    )),)
+                              ],
+                            ),
+                          ),),
+                        Padding(padding: EdgeInsets.only(bottom: 40, left: 10, right: 10),
+                          child: Container(
+                            color: lesCols[4],
+                            child: Row(
+                              children: <Widget>[
+                                Positioned(child: Text("Distancia"+"\n"+ "Recorrida",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                      fontSize: 25,
+                                      fontFamily: "Agrandir Text Bold",
+                                    )),
+                                  left: 2,
+                                ),
+                                Spacer(),
+                                Spacer(),
+                                Spacer(),
+                                Positioned(child: Text(snapshot.data["recorrido"]+" km",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: lesCols[6],
+                                      fontSize: 50,
+                                      fontFamily: "Agrandir Text Bold",
+                                    )),)
+                              ],
+                            ),
+                          ),),
+                        Spacer(),
+                        Padding(
+                          padding: EdgeInsets.only(top: 40, left: 10, right: 10),
+                          child: Container(
+                            height: 1,
+                            width: 1,
+                            child: PieChart(PieChartData(
+                                borderData: FlBorderData(
+                                  show: false,
+                                ),
+                                sectionsSpace: 0,
+                                centerSpaceRadius: 0,
+                                sections: sectionsChart
+                            )),
+                          ),
+                        ),
+                        Spacer(),
+                        Spacer(),
+                      ],
+                    ),
+                  );
                 }
               }),
-          ),
         ),
       );
   }
