@@ -16,7 +16,6 @@ List tempcols = lesCols.toList();
 
 // ignore: must_be_immutable
 class TheTextpls extends StatelessWidget {
-
   TheTextpls({
     this.myicon,
     this.helper,
@@ -62,7 +61,7 @@ class TheTextpls extends StatelessWidget {
     return TextField(
       autofocus: true,
       enabled: entertxt,
-      onChanged: (value)=> onPressed(value),
+      onChanged: (value) => onPressed(value),
       cursorColor: lesCols[1],
       style:
           TextStyle(color: txtcol, fontFamily: "Manrope Light", fontSize: fon),
@@ -95,13 +94,13 @@ class TheTextpls extends StatelessWidget {
 class PlayContainer extends StatelessWidget {
   PlayContainer(
       {required this.colorstart,
-        required this.colorend,
-        required this.coloricon,
-        required this.colorsub,
-        required this.icon,
-        required this.title,
-        required this.subtitle,
-        required this.func});
+      required this.colorend,
+      required this.coloricon,
+      required this.colorsub,
+      required this.icon,
+      required this.title,
+      required this.subtitle,
+      required this.func});
 
   final String title;
   final String subtitle;
@@ -284,11 +283,11 @@ class CustAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   CustAppBar(
       {required Key key,
-        required this.username,
+      required this.username,
       this.profpic,
-        required this.status,
-        required this.actions,
-        required this.leading})
+      required this.status,
+      required this.actions,
+      required this.leading})
       : super(key: key);
 
   @override
@@ -346,4 +345,91 @@ class CustAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   final Size preferredSize = Size.fromHeight(kToolbarHeight + 5);
+}
+
+class Favour extends StatelessWidget{
+  Favour({required this.title,
+  required this.maxDistance,
+  required this.compensation});
+
+  final String title;
+  final String compensation;
+  final String maxDistance;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      constraints: BoxConstraints.expand(
+        height: MediaQuery.of(context).size.height * 0.1,
+          width: MediaQuery.of(context).size.width * 0.8
+      ),
+      decoration: BoxDecoration(
+        color: Colors.green[200],
+        borderRadius: BorderRadius.circular(25)
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            Container(
+              child: LayoutBuilder(builder: (context, constraint){
+                return new Icon(
+                  Icons.account_circle_outlined,
+                  color: Colors.black,
+                  size: constraint.biggest.height);
+              }),
+            ),
+            Padding(padding: EdgeInsets.only(left: 5),
+              child: Padding(
+                padding: EdgeInsets.all(5),
+                child: Container(
+                  width: 190,
+                  child: Stack(
+                      children: [
+                        Positioned(
+                          bottom: 2,
+                          left: 5,
+                          child: Text(
+                            "\$"+compensation,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                backgroundColor: Colors.white,
+                                color: Colors.green[900]
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 2,
+                          right: 2,
+                          child: Text(
+                            maxDistance.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green[900]
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            title,
+                            softWrap: true,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green[900]
+                            ),
+                          ),
+                        ),
+                      ]
+                  ),
+                )
+              ),)
+          ],
+        ),
+      ),
+    );
+  }
 }

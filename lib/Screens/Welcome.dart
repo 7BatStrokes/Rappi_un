@@ -16,9 +16,10 @@ class Welcoming extends StatefulWidget {
   static const String id = 'welcoming';
   final author = FirebaseAuth.instance;
 
-  bool noConnecting = true;
-
-  String goog = "images/googleicon.png";
+  //static String email = " ";
+  //static String pass = " ";
+  // bool noConnecting = true;
+  // String goog = "images/googleicon.png";
 
   @override
   _TheAppState createState() => _TheAppState();
@@ -31,20 +32,18 @@ class _TheAppState extends State<Welcoming> {
   String goog = "images/googleicon.png";
 
   void authenticateUser(User user) {
+    print("Here Second");
     _firerepo.authenticateUser(user).then((isNewUser) {
-      if (user.email!.split("@")[1] == "unal.edu.co") {
+      if (user.email!.split("@")[1] == "unal.edu.co") { //Verifica que el usuario de google sea unal
+        print(user.displayName);
         print("New User? " + isNewUser.toString());
-        if (isNewUser) {
-          _firerepo.addUserDatatoDb(user, user.email!).then((value) {
-            Navigator.pushNamed(context, Choose.id);
-          });
-        } else {
-          _firerepo.updatelastdateDatatoDb(user).then((value) {
-            Navigator.pushNamed(context, Choose.id);
-          });
-        }
-      }
-      else {
+        _firerepo.addUserDatatoDb(user, user.email!).then((value) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
+            return Choose();
+          }));
+        });
+      } else {// En caso de no ser unal muestra el error
         return (
             showDialog(
             context: context,
@@ -79,7 +78,7 @@ class _TheAppState extends State<Welcoming> {
     });
   }
 
-  void performGoogleLogIn() async {
+  void performGoogleLogIn() async {// El login de google
     try {
       _firerepo.sadlySignOut();
       _firerepo.gSignIn("").then((User user) {
@@ -97,7 +96,7 @@ class _TheAppState extends State<Welcoming> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {// Aca se construye la escena que se ve
     return Scaffold(
       backgroundColor: lesCols[5],
       body: Padding(
@@ -124,7 +123,7 @@ class _TheAppState extends State<Welcoming> {
                 height: 40,
               ),
               Image(
-                  image: AssetImage("images/App.png"),
+                  image: AssetImage("images/rappi.png")
               ),
               SizedBox(
                 height: 40,

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rappi_un/Constants/AppRepository.dart';
+import 'package:rappi_un/Constants/FirebaseRepository.dart';
 
 //This Might come in handy someday
 //String docId;
@@ -363,10 +364,36 @@ class FireMethods {
 
   Future<String> getProfilePic(String uid) async {
     DocumentSnapshot doc = await fire.collection("users").doc(uid).get();
-
     int number = doc["profpic"];
     String st = 'images/$number.png';
 
     return st;
   }
+  Future<List<DocumentSnapshot>> getRestaurants() async {
+    List<DocumentSnapshot> restaurants = [];
+    QuerySnapshot query = await fire
+        .collection("restaurantes")
+        .get();
+
+    for (var i in query.docs) {
+      restaurants.add(i);
+    }
+    return restaurants;
+  }
+
+  Future<List<DocumentSnapshot>> getPeticiones() async{
+    List<DocumentSnapshot> peticiones = [];
+    QuerySnapshot query = await fire.collection("peticiones").get();
+    for(var i in query.docs){
+      peticiones.add(i);
+    }
+    return peticiones;
+  }
+
+  Future<DocumentSnapshot> getdatos(String email) async{
+    User cu=await getCurrentUser();
+    DocumentSnapshot doc = await fire.collection("notas").doc(email).get();
+    return doc;
+  }
+
 }
