@@ -29,14 +29,14 @@ class Reporte extends StatelessWidget{
                     PieChartSectionData(
                       //snapshot.data["pedido"]*100/snapshot.data["total"]
                       value: pedidos*100/Total,
-                      title: "Completadas",
+                      title: "Completados: "+pedidos.toString(),
                       showTitle: true,
                       color: Colors.orange,
                       radius: 100,
                     ),
                     PieChartSectionData(
                       value: (Total-pedidos)*100/Total,
-                      title: "Fallo",
+                      title: "Fallo: "+(Total-pedidos).toString(),
                       showTitle: true,
                       color: Colors.blue,
                       radius: 100,
