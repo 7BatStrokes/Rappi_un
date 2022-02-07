@@ -44,8 +44,8 @@ class _TheAppState extends State<EstadoPedidoCompra> {
             padding: EdgeInsets.only(top: 40, bottom: 10, left: 20, right: 20),
             child: Column(
               children: [
-                Image(image: AssetImage('images/loading.gif')),
-                Text("Tu pedido:\n"+ widget.objeto),
+                Image(image: AssetImage('images/cycle.gif')),
+                Text("\nTu pedido:\n"+ widget.objeto),
                 Text("Con un valor de: "+ widget.precio.toString()),
                 Text("Tu pedido esta: "),
                 Slider(
@@ -66,7 +66,7 @@ class _TheAppState extends State<EstadoPedidoCompra> {
                   icon: const Icon(
                       Awesome5.snapchat),
                   onPressed: () {
-                  
+
 
                   }
                   ),

@@ -15,6 +15,21 @@ class Reporte extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: lesCols[6],
+        centerTitle: true,
+        title: Text("Te has esforzado al maximo!"),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            );
+          },
+        ),
+      ),
       backgroundColor: lesCols[5],
       body: SafeArea(
           child: FutureBuilder(
@@ -45,31 +60,8 @@ class Reporte extends StatelessWidget{
                   return Scrollbar(
                     child: Column(
                       children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(top: 40, bottom: 40, left: 0, right: 0),
-                          child: Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                Container(
-                                  color: lesCols[4],
-                                  child: Align(
-                                    heightFactor: 2,
-                                    alignment: Alignment.center,
-                                    child: Text("Te has esforzado al maximo!",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: lesCols[3],
-                                        fontSize: 25,
-                                        fontFamily: "Agrandir Text Bold",
-                                      ),),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(padding: EdgeInsets.only(bottom: 40, left: 10, right: 10),
+
+                        Padding(padding: EdgeInsets.only(bottom: 30, left: 10, right: 10, top: 10),
                           child: Container(
                             color: lesCols[4],
                             child: Row(
@@ -84,8 +76,6 @@ class Reporte extends StatelessWidget{
                                   left: 2,
                                 ),
                                 Spacer(),
-                                Spacer(),
-                                Spacer(),
                                 Positioned(child: Text(snapshot.data["pedidos"],
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -96,7 +86,7 @@ class Reporte extends StatelessWidget{
                               ],
                             ),
                           ),),
-                        Padding(padding: EdgeInsets.only(bottom: 40, left: 10, right: 10),
+                        Padding(padding: EdgeInsets.only(bottom: 30, left: 10, right: 10),
                           child: Container(
                             color: lesCols[4],
                             child: Row(
@@ -123,7 +113,7 @@ class Reporte extends StatelessWidget{
                               ],
                             ),
                           ),),
-                        Padding(padding: EdgeInsets.only(bottom: 40, left: 10, right: 10),
+                        Padding(padding: EdgeInsets.only(bottom: 30, left: 10, right: 10),
                           child: Container(
                             color: lesCols[4],
                             child: Row(
