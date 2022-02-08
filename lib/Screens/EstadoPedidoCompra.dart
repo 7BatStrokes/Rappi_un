@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:rappi_un/Constants/AllModels.dart';
+import 'package:rappi_un/Screens/Choose.dart';
 import 'package:rappi_un/icons/awesome5_icons.dart';
 
 import 'Chat.dart';
+import 'Home.dart';
 
 
 class EstadoPedidoCompra extends StatefulWidget {
@@ -35,7 +37,9 @@ class _TheAppState extends State<EstadoPedidoCompra> {
               return IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
-                  Navigator.pop(context);
+
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Choose()));
                 },
               );
             },
