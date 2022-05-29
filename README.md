@@ -1,16 +1,7 @@
 # rappi_un
 
-IngSoft
+Aplicación en Flutter diseñada para realizar pedidos dentro de una institución educativa superior, realizado como proyecto educativo para la materia ingenieria de software en la Universidad Nacional De Colombia.
 
-## Getting Started
+![Restaurantes](https://user-images.githubusercontent.com/59572442/170877946-1e627bbd-fd42-4389-aa4a-8e7ba1e0b9cf.png) ![Detalles](https://user-images.githubusercontent.com/59572442/170877947-d1ff1e62-5f71-474f-ae9b-b6adab5e4a0a.png)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Pedido](https://user-images.githubusercontent.com/59572442/170877948-d64001b3-3612-4f5a-856d-6ebe00a90759.png) ![Estado del pedido](https://user-images.githubusercontent.com/59572442/170877949-e23b7ae0-1370-48b8-b106-0ee9fe4a57b6.png)
